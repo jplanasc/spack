@@ -33,13 +33,15 @@ class NeurodamusBase(Package):
     homepage = "ssh://bbpcode.epfl.ch/sim/neurodamus/bbp"
     url      = "ssh://bbpcode.epfl.ch/sim/neurodamus/bbp"
 
-    version('master',      git=url)
-    version('hippocampus', git=url, branch='sandbox/king/hippocampus')
-    version('plasticity',  git=url, branch='sandbox/king/saveupdate_v6support_mask', preferred=True)
+    # Once the testing versions are working we go back to using to original branches
+    # version('master',      git=url)
+    # version('hippocampus', git=url, branch='sandbox/king/hippocampus')
+    # version('plasticity',  git=url, branch='sandbox/king/saveupdate_v6support_mask', preferred=True)
+
     # Testing versions
-    version('master-syntool', git=url, branch='sandbox/leite/synapsetool')
-    version('hippocampus-syntool', git=url, branch='sandbox/leite/hippocampus-syntool')
-    version('plasticity-syntool', git=url, branch='sandbox/leite/saveupdate_v6support_mask-syntool')
+    version('master', git=url, branch='sandbox/leite/synapsetool', preferred=True)
+    version('hippocampus', git=url, branch='sandbox/leite/hippocampus-syntool')
+    version('plasticity', git=url, branch='sandbox/leite/saveupdate_v6support_mask-syntool')
 
     def install(self, spec, prefix):
         shutil.copytree('lib', '%s/lib' % (prefix), symlinks=False)
