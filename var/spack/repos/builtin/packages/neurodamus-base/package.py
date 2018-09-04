@@ -36,12 +36,12 @@ class NeurodamusBase(Package):
     # Once the testing versions are working we go back to using to original branches
     # version('master',      git=url)
     # version('hippocampus', git=url, branch='sandbox/king/hippocampus')
-    # version('plasticity',  git=url, branch='sandbox/king/saveupdate_v6support_mask', preferred=True)
+    version('plasticity',  git=url, branch='sandbox/king/saveupdate_v6support_mask', preferred=True)
 
     # Testing versions
-    version('master', git=url, branch='sandbox/leite/synapsetool', preferred=True)
+    version('master', git=url, branch='sandbox/leite/synapsetool')
     version('hippocampus', git=url, branch='sandbox/leite/hippocampus-syntool')
-    version('plasticity', git=url, branch='sandbox/leite/saveupdate_v6support_mask-syntool')
+    # version('plasticity', git=url, branch='sandbox/leite/saveupdate_v6support_mask-syntool') # not ready
 
     def install(self, spec, prefix):
         shutil.copytree('lib', '%s/lib' % (prefix), symlinks=False)
