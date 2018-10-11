@@ -45,12 +45,11 @@ class Synapsetool(CMakePackage):
 
     depends_on('boost@1.55:')
     depends_on('cmake', type='build')
-    depends_on('hdf5+mpi', when='+mpi')
-    depends_on('hdf5~mpi', when='~mpi')
+    depends_on('hdf5+mpi',     when='+mpi')
+    depends_on('hdf5',         when='~mpi')
     depends_on('highfive+mpi', when='+mpi')
-    depends_on('highfive~mpi', when='~mpi')
-    depends_on('mpi', when='+mpi')
-    depends_on('python')
+    depends_on('highfive',     when='~mpi')
+    depends_on('mpi',          when='^hdf5+mpi')
 
     @property
     def libs(self):
@@ -66,12 +65,14 @@ class Synapsetool(CMakePackage):
 
     def cmake_args(self):
         args = []
-        if self.spec.satisfies('+mpi'):
+        if self.spec.satisfies('^mpi'):
             args.extend([
                 '-DCMAKE_C_COMPILER:STRING={}'.format(self.spec['mpi'].mpicc),
                 '-DCMAKE_CXX_COMPILER:STRING={}'.format(self.spec['mpi'].mpicxx),
-                '-DSYNTOOL_WITH_MPI:BOOL=ON',
             ])
+        if self.spec.satisfies('+mpi'):
+            args.extend(['-DSYNTOOL_WITH_MPI:BOOL=ON'])
+
         if self.spec.satisfies('~shared'):
             args.append('-DCOMPILE_LIBRARY_TYPE=STATIC')
         return args

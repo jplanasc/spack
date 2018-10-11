@@ -45,8 +45,9 @@ class Highfive(CMakePackage):
     variant('mpi', default=True, description='Support MPI')
 
     depends_on('boost @1.41:', when='+boost')
-    depends_on('hdf5 ~mpi', when='~mpi')
-    depends_on('hdf5 +mpi', when='+mpi')
+    depends_on('hdf5',         when='~mpi')
+    depends_on('hdf5+mpi',     when='+mpi')
+    depends_on('mpi',          when='^hdf5+mpi')
 
     def cmake_args(self):
         args = [
